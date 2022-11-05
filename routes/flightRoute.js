@@ -1,9 +1,16 @@
-const express = require('express');
+const router = require('express').Router()
 
-const router = express.Router();
-const controller = require('../controllers/flightController');
+// const express = require('express');
+// const router = express.Router();
+const controller = require("../controllers/flightController")
 
-router.get('/', controller.example)
+router.get("/", controller.getFlight)
+router.get("/:id", controller.getFlightEach)
+router.post("/", controller.CreateFlight)
+router.post("/:id", controller.updateFlightData)
+router.delete("/:id", controller.DeleteFlightRecord)
 
-module.exports = router;
+
+
+module.exports =router;
 
