@@ -1,6 +1,6 @@
 const {flights}= require("../models/Flight"); 
-// const {v4:uuid} = require ('uuid')
-const uuid = require("uuid").v4()
+const {v4:uuid} = require ('uuid')
+//const uuid = require("uuid").v4()
 
 
 //get all flights booked
