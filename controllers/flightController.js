@@ -1,5 +1,5 @@
 const {flights}= require("../models/Flight"); 
-// const {v4:id} = require ('uuid')
+// const {v4:uuid} = require ('uuid')
 const uuid = require("uuid").v4()
 
 
@@ -44,7 +44,7 @@ exports.CreateFlight = async (req, res) =>{
     //console.log(bookflight);
        const {title, time, price, date}= await req.body;
        const newFlight ={
-        id: uuid,
+        id: uuid(),
         title,
         time,
         price,
