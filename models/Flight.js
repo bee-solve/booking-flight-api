@@ -1,1 +1,1 @@
-exports.flights = [];
+exports.Flight = [];
