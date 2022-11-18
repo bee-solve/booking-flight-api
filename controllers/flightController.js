@@ -1,109 +1,112 @@
-const {flights}= require("../models/Flight"); 
-const {v4:uuid} = require ('uuid')
-//const uuid = require("uuid").v4()
+const { Flight } = require("../model/Flight");
+//const uuid = require('uuid').v4();
+const {v4: uuid} = require("uuid");
 
 
-//get all flights booked
-exports.getFlight = async (req, res) => {
+
+
+//get all flights
+exports.getAllFlights = async (req, res)=>{
     try{
-        const flight = flights;
-
-        res.status(200).json({
-            message: "ALL Flights",
-            BookedFlight: flight,
-        });
-    }catch(err){
-        res.status(500).json({
-            message:err.message
-        });
-    }
+    const flights = Flight;
+   
+    //res.status(200).json(users);
+    res.status(200).json({
+        message: "All Flight booked",
+        AllFlight: flights,
+    });
+} catch(err){
+    res.status(500).json({
+        message: err.message
+    });
 }
-
-//get a single flight
-exports.getFlightEach = async(req, res) =>{
+}
+//create new flight
+exports.bookFlight = async (req, res) =>{
     try{
-        let id = req.params.id;
-        const flightData = flights.find((flight) => flight.id === id);
+        
+        const { title, time, price, date} = await req.body;
+        const newFlight = {
+            id: uuid(),
+            title,
+            time,
+            price,
+            date,
+        };
+
+         Flight.push(newFlight);
+        
 
         res.status(201).json({
-            message: "flight found",
-            BookedFlight: flightData,
+            message: "flight booked",
+            newFlight,
         });
-        }catch(err){
+    } catch(err){
         res.status(500).json({
-            message:err.message
-        });
-    }
-
+            message: err.message
+        })
+}
 }
 
-//add or book new flight
-exports.CreateFlight = async (req, res) =>{
+//fetch single user
+exports.getEachFlight = async (req, res)=>{
     try{
-    //const bookflight = await req.body;
-    //console.log(bookflight);
-       const {title, time, price, date}= await req.body;
-       const newFlight ={
-        id: uuid(),
-        title,
-        time,
-        price,
-        date
-       };
-       flights.push(newFlight);
-
-        res.status(201).json({
-            message: "New flight booked",
-            BookedFlight: newFlight
+        id= req.params.id;
+        const EachFlight = Flight.find((flight) => flight.id === id);
+ 
+        if(EachFlight)
+        return res.status(200).json({
+            message: "Flight record found",
+            EachFlight,
         });
-
-    }catch(err){
+            res.status(404).json({
+                message: "Flight record not found in database",
+            });
+        }
+     catch(err){
         res.status(500).json({
-            message:err.message
-        });
-    }
-
+            message: err.message
+        })
+}
 }
 
-//update flight record 
-exports.updateFlightData = async(req, res) =>{
+//update users
+exports.updateFlight = async (req, res) =>{
     try{
-        let id = req.params.id;
-        const flightRecord = flights.find((flight) => flight.id === id);
-        const {title, time, price, date}= await req.body;
-        flightRecord.title = title;
-        flightRecord.time = time;
-        flightRecord.price = price;
-        flightRecord.date = date;
+     id = req.params.id;
+        const FlightUpdate = Flight.find((flight) => flight.id === id);
+       
+        const { title, time, price, date } = await req.body;
+        FlightUpdate.title = title;
+        FlightUpdate.time = time;
+        FlightUpdate.price = price;
+        FlightUpdate.date = date;
 
         res.status(200).json({
             message: "flight data updated",
-            BookedFlight: flightRecord
+            FlightUpdate,
         });
-
-    }catch(err){
+    } catch(err){
         res.status(500).json({
             message:err.message
         });
     }
-
 }
 
-//Delete or cancel Booked flight
-exports.DeleteFlightRecord = async (req, res) =>{
+//delete user
+exports.removeFlight = async(req, res) =>{
     try{
-        let id= req.params.id;
-        const flightInfo = flights.find((flight) => flight.id ===id);
-        flights.splice(flights.indexOf(flight), 1);
-        res.status(200).json({
-            message: "flight Data deleted",
-            BookedFlight: flightInfo
-        });
+        id = req.params.id;
+        const deleteFlight = Flight.find((flight) => flight.id === id);
+        Flight.splice(Flight.indexOf(deleteFlight), 1)
 
-    }catch(err){
+        res.status(200).json({
+            message: "Booked flight removed successfully",
+            
+        });
+    } catch(err){
         res.status(500).json({
             message:err.message
         });
     }
-
 }
