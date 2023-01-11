@@ -1,17 +1,21 @@
+
 const express = require("express");
-const { json } = require("express");
-const flights = require("./controllers/flightController");
-const models = require("./models/Flight");
-const routes = require("./routes/flightRoute");
+const {v4: uuid} = require('uuid');
+const { json }= require("express");
+
+const flight = require('./routes/flightRoute.js');
 
 const app = express();
-
 app.use(json());
 
-app.use("/", routes);
+app.use("/Flight", flight);
 
-const port = process.env.PORT || 3000;
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+
+
+app.get("/", (req, res)=>{
+    res.send("working on a project");
+ 
+})
+const PORT = process.env.PORT || 3000;
+app.listen(PORT,()=>console.log(`serving on port ${PORT}`));

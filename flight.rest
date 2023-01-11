@@ -1,0 +1,30 @@
+@url = "http://localhost:3000/"
+GET http://localhost:3000/Flight HTTP/1.1
+
+###
+GET http://localhost:3000/Flight/d3e6040c-6fd1-42ab-a9d8-61c5b9e29165 HTTP/1.
+
+###
+POST http://localhost:3000/Flight  HTTP/1.1
+Content-Type:  application/json
+
+{
+  "title": "niyi",
+  "time": "10am",
+  "price":"300000",
+  "date": "20-2-2023"
+}
+
+###
+PUT http://localhost:3000/Flight/cc0bdcfb-7989-4816-8b3f-6f4bac97072f HTTP/1.1
+Content-Type:  application/json
+
+{
+  "title": "Janet",
+    "time": "11am",
+    "price": "500000",
+    "date": "20-12-2022"
+}
+
+###
+DELETE http://localhost:3000/Flight/d3e6040c-6fd1-42ab-a9d8-61c5b9e29165
